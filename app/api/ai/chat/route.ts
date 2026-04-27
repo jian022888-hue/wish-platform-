@@ -3,6 +3,13 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
+    if (!ai) {
+      return NextResponse.json(
+        { success: false, error: "AI service not configured" },
+        { status: 503 },
+      );
+    }
+
     const { messages } = await request.json();
 
     if (!Array.isArray(messages) || messages.length === 0) {
