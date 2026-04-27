@@ -1,15 +1,19 @@
+"use client";
+
 import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/ui/button";
 import { MessagesBadge } from "@/components/layout/messages-badge";
+import { MobileNav } from "@/components/layout/mobile-nav";
+import { NotificationBadge } from "@/components/layout/notification-badge";
 import { ThemeToggle } from "@/components/layout/theme-toggle";
-import { createClient } from "@/lib/supabase/server";
-import { signOut } from "@/app/auth/actions";
+import { UserMenu } from "@/components/layout/user-menu";
 
 const navItems = [
   { href: "/", label: "愿望广场" },
   { href: "/submit", label: "发布愿望" },
+  { href: "/activity", label: "动态" },
   { href: "/messages", label: "消息" },
 ];
 
@@ -24,47 +28,7 @@ function DreamLogo() {
   );
 }
 
-async function UserMenu() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return (
-      <div className="flex items-center gap-3">
-        <ButtonLink href="/auth/signin" size="sm" variant="secondary">
-          登录
-        </ButtonLink>
-        <ButtonLink href="/auth/signup" size="sm" variant="primary">
-          注册
-        </ButtonLink>
-      </div>
-    );
-  }
-
-  const email = user.email;
-  const displayName =
-    user.user_metadata?.display_name || email?.split("@")[0] || "用户";
-
-  return (
-    <div className="flex items-center gap-3">
-      <span className="hidden text-sm text-ink/70 lg:inline dark:text-ink-light/70">
-        {displayName}
-      </span>
-      <form action={signOut}>
-        <button
-          type="submit"
-          className="rounded-full border border-stone-200 px-4 py-2 text-sm text-ink/60 transition hover:border-clay/40 hover:text-ink dark:border-stone-700 dark:text-ink-light/60 dark:hover:text-ink-light"
-        >
-          退出登录
-        </button>
-      </form>
-    </div>
-  );
-}
-
-export async function AppHeader() {
+export function AppHeader() {
   return (
     <header className="sticky top-0 z-30 border-b border-stone-200/80 bg-stone-50/88 backdrop-blur-xl dark:border-stone-700/50 dark:bg-[#1A1816]/90">
       <div className="page-shell flex min-h-[72px] items-center justify-between gap-5 py-3">
@@ -97,6 +61,7 @@ export async function AppHeader() {
 
         <div className="flex items-center gap-3">
           <ThemeToggle />
+          <NotificationBadge />
           <MessagesBadge />
 
           <ButtonLink
@@ -120,6 +85,7 @@ export async function AppHeader() {
           <UserMenu />
         </div>
       </div>
+      <MobileNav />
     </header>
   );
 }

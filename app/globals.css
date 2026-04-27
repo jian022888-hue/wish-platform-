@@ -84,4 +84,37 @@ textarea {
   .eyebrow {
     @apply text-[11px] uppercase tracking-[0.24em] text-clay;
   }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .page-shell {
+    @apply px-4;
+  }
+
+  /* Add bottom padding for mobile nav */
+  main {
+    @apply pb-20;
+  }
+
+  /* Improve touch targets */
+  button,
+  a {
+    @apply min-h-[44px];
+  }
+}
+
+/* Hide scrollbar but allow scrolling */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
