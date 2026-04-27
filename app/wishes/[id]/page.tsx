@@ -11,6 +11,7 @@ import { ButtonLink } from "@/components/ui/button";
 import { ProgressTimeline } from "@/components/wish/progress-timeline";
 import { WishStatusBadge } from "@/components/wish/wish-status-badge";
 import { WishManagementPanel } from "@/components/wish/wish-management-panel";
+import { MessageWishOwnerButton } from "@/components/wish/message-wish-owner-button";
 
 export async function generateStaticParams() {
   return wishes.map((wish) => ({
@@ -180,6 +181,13 @@ export default async function WishDetailPage({
           </div>
 
           <WishManagementPanel wish={wish} />
+
+          {wish.originLabel && (
+            <MessageWishOwnerButton 
+              wishId={wish.id} 
+              wishOwnerId={wish.originLabel} 
+            />
+          )}
         </aside>
       </div>
     </div>

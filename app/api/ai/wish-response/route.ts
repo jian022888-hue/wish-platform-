@@ -1,12 +1,20 @@
 import { ai, AI_MODEL } from "@/lib/ai";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
+    if (!ai) {
+      return NextResponse.json(
+        { error: "AI service not configured" },
+        { status: 503 },
+      );
+    }
+
     const body = await request.json();
     const { wishId, title, description } = body;
 
     if (!wishId || !title || !description) {
-      return Response.json(
+      return NextResponse.json(
         { error: "缺少必填字段：wishId, title, description" },
         { status: 400 },
       );

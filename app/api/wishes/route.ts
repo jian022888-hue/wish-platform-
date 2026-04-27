@@ -23,9 +23,13 @@ export async function GET(request: Request) {
     const category = searchParams.get("category");
     const status = searchParams.get("status");
     const search = searchParams.get("search");
+    const userId = searchParams.get("userId");
 
     let wishes = await getWishes();
 
+    if (userId) {
+      wishes = wishes.filter((w) => w.originLabel === userId || (w as any).userId === userId);
+    }
     if (category) {
       wishes = wishes.filter((w) => w.category === category);
     }

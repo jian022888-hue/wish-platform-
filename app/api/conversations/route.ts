@@ -139,3 +139,81 @@ export async function GET(request: Request) {
     );
   }
 }
+
+export async function POST(request: Request) {
+  try {
+    const user = await requireAuth();
+    const supabase = await createClient();
+
+    const body = await request.json();
+    const { wishContextId, receiverId } = body;
+
+    if (!receiverId) {
+      return NextResponse.json(
+        { success: false, error: "接收者ID不能为空" },
+        { status: 400 },
+      );
+    }
+
+    if (receiverId === user.id) {
+      return NextResponse.json(
+        { success: false, error: "不能与自己对话" },
+        { status: 400 },
+      );
+    }
+
+    // Check if conversation already exists
+    const { data: existingConv } = await supabase
+      .from("conversations")
+      .select("id")
+      .or(
+        `and(user_a_id.eq.${user.id},user_b_id.eq.${receiverId}),and(user_a_id.eq.${receiverId},user_b_id.eq.${user.id})`
+      )
+      .single();
+
+    if (existingConv) {
+      return NextResponse.json({
+        success: true,
+        conversation: { id: existingConv.id },
+        isNew: false,
+      });
+    }
+
+    // Create new conversation
+    const { data: conversation, error: convError } = await supabase
+      .from("conversations")
+      .insert({
+        user_a_id: user.id,
+        user_b_id: receiverId,
+        wish_context_id: wishContextId || null,
+        status: "active",
+      })
+      .select()
+      .single();
+
+    if (convError) {
+      return NextResponse.json(
+        { success: false, error: convError.message },
+        { status: 500 },
+      );
+    }
+
+    return NextResponse.json({
+      success: true,
+      conversation: { id: conversation.id },
+      isNew: true,
+    }, { status: 201 });
+  } catch (error) {
+    if (error instanceof Error && error.message === "NEXT_REDIRECT") {
+      return NextResponse.json(
+        { success: false, error: "请先登录" },
+        { status: 401 },
+      );
+    }
+    const message = error instanceof Error ? error.message : "Unknown error";
+    return NextResponse.json(
+      { success: false, error: "创建对话失败" },
+      { status: 500 },
+    );
+  }
+}
