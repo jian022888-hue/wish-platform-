@@ -1,0 +1,6 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/submit/page": "/submit",
+  "/page": "/",
+  "/wishes/[id]/page": "/wishes/[id]"
+}

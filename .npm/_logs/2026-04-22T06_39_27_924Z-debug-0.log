@@ -1,0 +1,36 @@
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+0 verbose cli /usr/local/bin/node /usr/local/bin/npm
+1 info using npm@10.9.3
+1 info using npm@10.9.3
+2 info using node@v22.19.0
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+2 info using node@v22.19.0
+3 silly config load:file:/usr/local/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/jian/Desktop/梦/.npmrc
+5 silly config load:file:/usr/local/etc/npmrc
+4 silly config load:file:/Users/jian/Desktop/梦/.npmrc
+5 silly config load:file:/usr/local/etc/npmrc
+6 verbose title npm run build
+7 verbose argv "run" "build"
+6 verbose title npm run lint
+7 verbose argv "run" "lint"
+8 verbose logfile logs-max:10 dir:/Users/jian/Desktop/梦/.npm/_logs/2026-04-22T06_39_27_924Z-
+8 verbose logfile logs-max:10 dir:/Users/jian/Desktop/梦/.npm/_logs/2026-04-22T06_39_27_924Z-
+9 verbose logfile /Users/jian/Desktop/梦/.npm/_logs/2026-04-22T06_39_27_924Z-debug-0.log
+9 verbose logfile /Users/jian/Desktop/梦/.npm/_logs/2026-04-22T06_39_27_924Z-debug-0.log
+10 silly logfile start cleaning logs, removing 1 files
+10 silly logfile start cleaning logs, removing 1 files
+11 silly logfile done cleaning log files
+11 silly logfile done cleaning log files
+12 verbose cwd /Users/jian/Desktop/梦
+13 verbose os Darwin 25.4.0
+14 verbose node v22.19.0
+15 verbose npm  v10.9.3
+16 verbose exit 1
+17 verbose code 1
+12 verbose cwd /Users/jian/Desktop/梦
+13 verbose os Darwin 25.4.0
+14 verbose node v22.19.0
+15 verbose npm  v10.9.3
+16 verbose exit 0
+17 info ok

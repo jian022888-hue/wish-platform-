@@ -1,0 +1,11 @@
+{
+  "/api/ai/wish-response/route": "/api/ai/wish-response",
+  "/api/ai/chat/route": "/api/ai/chat",
+  "/api/ai/refine/route": "/api/ai/refine",
+  "/_not-found/page": "/_not-found",
+  "/api/wishes/route": "/api/wishes",
+  "/api/wishes/[id]/responses/route": "/api/wishes/[id]/responses",
+  "/submit/page": "/submit",
+  "/page": "/",
+  "/wishes/[id]/page": "/wishes/[id]"
+}
